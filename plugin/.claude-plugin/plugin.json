@@ -1,0 +1,8 @@
+{
+  "name": "agy",
+  "version": "0.1.0",
+  "description": "Use the local agy CLI from Claude Code for fast drafts, reviews, docs, and tests.",
+  "author": {
+    "name": "Isaac-dev"
+  }
+}

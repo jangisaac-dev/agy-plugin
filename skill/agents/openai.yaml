@@ -1,0 +1,7 @@
+interface:
+  display_name: "AGY Bridge"
+  short_description: "Local agy CLI: fast draft, review, docs, tests"
+  default_prompt: "Use $agy-bridge to quickly review my current changes."
+  icon_small: "./assets/agy-small.svg"
+  icon_large: "./assets/agy-large.svg"
+  brand_color: "#1A73E8"
