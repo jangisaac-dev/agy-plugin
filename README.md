@@ -19,9 +19,17 @@ it: `claude plugin uninstall agy@agy-local && claude plugin install agy@agy-loca
 | Command | Mode | What it does |
 |---|---|---|
 | `/agy:review` | read intent | Fast review of local changes (isolated worktree, discarded). |
+| `/agy:adversarial-review` | read intent | Attacks the change for weak assumptions / failure modes. |
 | `/agy:doc` | read intent | Draft developer docs for the current code/changes. |
 | `/agy:fast-impl <task>` | write | Fast implementation draft in an isolated worktree; returns a diff to review. |
+| `/agy:setup` | — | Check that `agy` is installed + authenticated (local, no network call). |
+| `/agy:status [job-id]` | — | List recent jobs (or show one), including background-job state. |
+| `/agy:cancel [job-id]` | — | Stop a running background job and clean up its worktree. |
 | `/agy:result [job-id]` | — | Show the latest (or given) saved run. |
+
+Add `--background` (or `-b`) to `review` / `adversarial-review` / `doc` /
+`fast-impl` to run it detached: the command returns a `job_id` immediately, and
+you track it with `/agy:status` and stop it with `/agy:cancel`.
 
 ## Safety — read this
 
@@ -70,4 +78,5 @@ The runner logic (`agy-run.sh` + `lib/common.sh`) is currently duplicated in
 
 ## Requirements
 
-`agy` (authenticated), `git`, `rsync`, `bash`. `claude` CLI for `install.sh`.
+`agy` (authenticated), `git`, `rsync`, `jq`, `bash`. `claude` CLI for `install.sh`.
+(`jq` reads job metadata for `status`/`cancel`.)

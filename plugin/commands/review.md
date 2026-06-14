@@ -1,6 +1,6 @@
 ---
 description: Run a fast AGY review of local changes (in an isolated worktree)
-argument-hint: '[focus notes]'
+argument-hint: '[--background] [focus notes]'
 allowed-tools: Read, Bash(bash:*)
 ---
 
@@ -21,3 +21,7 @@ say AGY produced no output and show `stderr.log`.
 
 Note: the repo content is sent to AGY's backend. For a hard read-only guarantee,
 prefer `/grok:review` — AGY has no enforced read-only mode.
+
+**Background:** if the user passes `--background` (or `-b`), the run starts
+detached and returns a `job_id` immediately. Tell the user to check it with
+`/agy:status` and stop it with `/agy:cancel`; do not wait for `result.md`.

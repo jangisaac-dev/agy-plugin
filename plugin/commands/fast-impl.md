@@ -1,6 +1,6 @@
 ---
 description: Delegate a fast implementation draft to AGY in an isolated worktree, then review its diff
-argument-hint: '<task description>'
+argument-hint: '[--background] <task description>'
 allowed-tools: Read, Bash(bash:*), Bash(git:*)
 ---
 
@@ -24,3 +24,8 @@ The command prints a `diff:` path and a `result:` path. Then:
 If status is `no_changes`, tell the user AGY proposed no edits. If
 `capture_failed`, show `stderr.log`. Note: task text + repo content go to AGY's
 backend.
+
+**Background:** if the task starts with `--background` (or `-b`), the run goes
+detached and returns a `job_id` immediately (no diff yet). Tell the user to check
+it with `/agy:status`; when it finishes, `/agy:result` shows the captured diff.
+`/agy:cancel` stops it and cleans up the worktree.

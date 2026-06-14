@@ -1,6 +1,6 @@
 ---
 description: Generate developer docs for local changes with AGY (isolated worktree)
-argument-hint: '[what to document]'
+argument-hint: '[--background] [what to document]'
 allowed-tools: Read, Bash(bash:*)
 ---
 
@@ -19,3 +19,7 @@ user. AGY does not write docs into the repo — you place approved content. If
 status is `capture_failed`, show `stderr.log`.
 
 Note: the repo content is sent to AGY's backend.
+
+**Background:** if the user passes `--background` (or `-b`), the run starts
+detached and returns a `job_id` immediately. Tell the user to check it with
+`/agy:status` and stop it with `/agy:cancel`; do not wait for `result.md`.

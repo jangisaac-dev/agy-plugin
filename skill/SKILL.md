@@ -46,8 +46,15 @@ exits non-zero on failure.
 | Command | Mode | Use for |
 |---|---|---|
 | `review` | read intent | Fast review of current local changes. |
+| `adversarial-review` | read intent | Attack the change — weak assumptions, failure modes. |
 | `doc` | read intent | Draft developer docs for the code/changes. |
 | `fast-impl "<task>"` | write (worktree) | Fast implementation draft; returns a diff. |
+| `setup` | local check | Verify `agy` is installed + authenticated (no network call). |
+| `status [job-id]` | local | List background jobs / show one. |
+| `cancel [job-id]` | local | Stop a running background job and clean up its worktree. |
+
+Add `--background` (or `-b`) to a run command to start it detached and get a
+`job_id` back immediately; then poll with `status` and stop with `cancel`.
 
 ## After a run
 
@@ -66,4 +73,5 @@ See `references/commands.md` for the full command/status/artifact reference, and
 
 - Repo content is sent to agy's backend; no local secret scanner.
 - Remind the user to add `.ai-runs/` to their repo `.gitignore`.
-- Requires `agy` (authenticated), `git`, `rsync`, `bash`.
+- Requires `agy` (authenticated), `git`, `rsync`, `jq`, `bash`. (`jq` is used by
+  `status`/`cancel` to read job metadata.)

@@ -1,8 +1,16 @@
 # TODO — agy-bridge / agy-plugin
 
 Future work to make this as capable as the official Codex skills. The current
-release is a working v1 (worktree-isolated review / doc / fast-impl), usable both
-as a Claude Code plugin and a Codex/agents skill.
+release covers worktree-isolated review / adversarial-review / doc / fast-impl,
+plus `setup` / `status` / `cancel` and `--background` jobs, usable both as a
+Claude Code plugin and a Codex/agents skill.
+
+## Shipped (Codex-skill parity so far)
+- [x] `adversarial-review` — attack-the-change review (parity with grok-bridge).
+- [x] `setup` — local install/auth check (no network call).
+- [x] Background jobs: `--background`/`-b` + `/agy:status` + `/agy:cancel`
+      (detached run in a disowned subshell; cancel kills the process tree and
+      cleans the worktree, including the `git worktree add` init-lock race).
 
 ## Packaging / portability
 - [ ] `install-skill.sh`: copy `skill/` into `~/.agents/skills/agy-bridge`,
@@ -13,8 +21,7 @@ as a Claude Code plugin and a Codex/agents skill.
 - [ ] Provide PNG icons in addition to the SVGs.
 
 ## Features (Codex-skill parity)
-- [ ] Background jobs + `status` / `cancel` (v1 is synchronous/foreground only).
-- [ ] Session resume (`agy --continue` / `--conversation <id>`).
+- [ ] Session resume (`agy --continue` / `agy --conversation <id>`).
 - [ ] Cleaner output: separate agy's narration from the actual answer instead of
       saving raw interleaved stdout (agy emits no JSON, so this needs heuristics).
 - [ ] `test` command: generate test cases for the current change.
