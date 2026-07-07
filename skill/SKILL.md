@@ -1,6 +1,6 @@
 ---
 name: agy-bridge
-description: Call the local agy (Antigravity/Gemini) CLI as a fast draft, review, docs, or test worker. Use when the user wants a quick second-opinion review of local changes, drafted developer docs, or to delegate a fast implementation and get back a reviewable diff. All runs happen in an isolated worktree; the live working tree is never modified directly.
+description: Use when the user explicitly asks to run agy, agy-bridge, or wants a fast Antigravity/Gemini second-opinion review, docs draft, or implementation diff for local repo changes.
 metadata:
   author: Isaac-dev
 ---
@@ -20,8 +20,14 @@ runner directly — no sandbox prompt, nothing extra. Skip to "Runner".
 outbound network + write access to `~/.gemini/antigravity-cli` (outside the
 workspace), so a sandboxed run fails (`FS_PERMISSION_DENIED`, log-write errors,
 `127.0.0.1:0` bind). So, **when running under Codex**:
-1. **Ask the user first**, e.g. "이 스킬은 agy 백엔드 호출과 `~/.gemini` 접근 때문에 Codex 샌드박스 밖(escalated)에서 실행해야 합니다. 진행할까요?"
-2. On approval, run the runner with escalated permissions (`sandbox_permissions=require_escalated`). Do not silently retry inside the sandbox.
+1. If the user explicitly requested `agy` / `agy-bridge` / `/agy:*`, treat that
+   as per-run consent to send the repo context and task to agy's backend. Do not
+   ask a second natural-language permission question.
+2. Immediately request the required tool escalation
+   (`sandbox_permissions=require_escalated`) for the runner command. The host
+   approval prompt is the execution permission gate.
+3. If `agy` was not explicitly requested and you are choosing it yourself,
+   explain the external transfer and ask first.
 
 Details / permanent fix: `references/codex-network.md`.
 
@@ -72,6 +78,7 @@ See `references/commands.md` for the full command/status/artifact reference, and
 ## Notes
 
 - Repo content is sent to agy's backend; no local secret scanner.
+- Explicit user invocation of `agy` is per-run consent for that transfer; don't add a redundant confirmation prompt.
 - Remind the user to add `.ai-runs/` to their repo `.gitignore`.
 - Requires `agy` (authenticated), `git`, `rsync`, `jq`, `bash`. (`jq` is used by
   `status`/`cancel` to read job metadata.)

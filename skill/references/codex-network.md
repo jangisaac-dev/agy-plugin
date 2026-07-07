@@ -5,14 +5,23 @@ files outside the workspace (~/.gemini/antigravity-cli). Codex's default sandbox
 fail with FS_PERMISSION_DENIED, "Settings fetch failed", log-write errors, or
 127.0.0.1:0 bind failures.
 
+## Consent model
+
+If the user explicitly requested `agy`, `agy-bridge`, or `/agy:*`, treat that as
+per-run consent to send the repo context and task to agy's backend. Do not add a
+second natural-language confirmation prompt. If you are choosing agy yourself,
+explain the external transfer and ask first.
+
 ## Recommended: escalate that one command (per-run)
 
 Run the runner with escalated permissions so it executes outside the sandbox for
 that single command. Codex prompts the user to approve each time. In the shell
-tool this is `sandbox_permissions=require_escalated`. Always ask the user first.
+tool this is `sandbox_permissions=require_escalated`. When explicit user
+invocation already provided consent, request escalation immediately instead of
+asking a redundant question.
 
-This is the safe option: the escalation is scoped to one command and re-confirmed
-every time.
+This is the safe option: the escalation is scoped to one command and the host
+approval prompt remains the execution permission gate.
 
 ## If you are prompted on every run
 

@@ -6,6 +6,15 @@
 - Draft README / docstrings / dev docs for the change → `doc`.
 - Want a fast implementation draft → `fast-impl "<task>"`.
 
+## Consent and prompts
+
+- If the user explicitly asks for `agy`, `agy-bridge`, or `/agy:*`, proceed with
+  the runner and request any required host/tool escalation directly.
+- Do not ask a second natural-language "may I send this externally?" question
+  after explicit invocation; the host approval prompt is the execution gate.
+- If you are choosing agy without an explicit user request, explain that repo
+  context is sent to agy's backend and ask first.
+
 ## agy vs grok (the sibling skill)
 
 - **agy** = fast. Good for drafts, docs, tests, bulk/repetitive edits, quick takes.

@@ -63,8 +63,9 @@ an absolute symlink `~/.codex/skills/agy-bridge -> ~/.agents/skills/agy-bridge`
 > `~/.agents/skills/agy-bridge/...` path. A portable `install-skill.sh` that
 > rewrites this on install is tracked in [TODO.md](TODO.md).
 
-Inside Codex, the skill asks before running outside the sandbox (agy needs network
-+ `~/.gemini` access); under Claude Code it runs directly. Same commands either way.
+Inside Codex, explicit `agy` invocation is treated as per-run consent to send repo
+context to AGY; the host tool approval remains the execution gate for network +
+`~/.gemini` access. Under Claude Code it runs directly. Same commands either way.
 
 ## Repo layout
 
